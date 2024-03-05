@@ -1,12 +1,9 @@
 package assessment.parkinglot.converter;
 
 import assessment.parkinglot.dto.SlotDto;
-import assessment.parkinglot.dto.SlotTypeDto;
 import assessment.parkinglot.dto.SlotVehicleDto;
 import assessment.parkinglot.dto.VehicleDto;
-import assessment.parkinglot.entity.Slot;
 import assessment.parkinglot.entity.SlotVehicle;
-import assessment.parkinglot.entity.Vehicle;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
 

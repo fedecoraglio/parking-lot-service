@@ -3,7 +3,6 @@ package assessment.parkinglot.converter;
 import assessment.parkinglot.dto.SlotDto;
 import assessment.parkinglot.dto.SlotTypeDto;
 import assessment.parkinglot.entity.Slot;
-import assessment.parkinglot.entity.SlotType;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
 

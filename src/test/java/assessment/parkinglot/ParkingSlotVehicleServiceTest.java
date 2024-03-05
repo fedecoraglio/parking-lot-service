@@ -1,11 +1,7 @@
 package assessment.parkinglot;
 
-import assessment.parkinglot.converter.SlotConverter;
 import assessment.parkinglot.converter.SlotVehicleConverter;
 import assessment.parkinglot.dto.ParkingSlotVehicleDto;
-import assessment.parkinglot.entity.Slot;
-import assessment.parkinglot.entity.SlotType;
-import assessment.parkinglot.entity.Vehicle;
 import assessment.parkinglot.entity.VehicleType;
 import assessment.parkinglot.exception.ParkingLotException;
 import assessment.parkinglot.repository.*;

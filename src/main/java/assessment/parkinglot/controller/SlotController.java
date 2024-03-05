@@ -1,9 +1,7 @@
 package assessment.parkinglot.controller;
 
 import assessment.parkinglot.dto.RemainingSlotDto;
-import assessment.parkinglot.dto.SlotTypeDto;
 import assessment.parkinglot.service.SlotService;
-import assessment.parkinglot.service.SlotTypeService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
