@@ -23,17 +23,17 @@ public class ParkingSlotVehicleServiceImpl implements ParkingSlotVehicleService 
     private final VehicleTypeRepository vehicleTypeRepository;
     private final SlotTypeRepository slotTypeRepository;
     private final SlotVehicleRepository slotVehicleRepository;
-    private final SlotConverter slotConverter;
     private final SlotVehicleConverter slotVehicleConverter;
-    public ParkingSlotVehicleServiceImpl(final SlotRepository slotRepository, final VehicleRepository vehicleRepository,
-                                         final VehicleTypeRepository vehicleTypeRepository, final SlotTypeRepository slotTypeRepository,
-                                         final SlotConverter slotConverter, final SlotVehicleRepository slotVehicleRepository,
+    public ParkingSlotVehicleServiceImpl(final SlotRepository slotRepository,
+                                         final VehicleRepository vehicleRepository,
+                                         final VehicleTypeRepository vehicleTypeRepository,
+                                         final SlotTypeRepository slotTypeRepository,
+                                         final SlotVehicleRepository slotVehicleRepository,
                                          final SlotVehicleConverter slotVehicleConverter) {
         this.slotRepository = slotRepository;
         this.vehicleRepository = vehicleRepository;
         this.vehicleTypeRepository = vehicleTypeRepository;
         this.slotTypeRepository = slotTypeRepository;
-        this.slotConverter = slotConverter;
         this.slotVehicleRepository = slotVehicleRepository;
         this.slotVehicleConverter = slotVehicleConverter;
     }
@@ -43,9 +43,9 @@ public class ParkingSlotVehicleServiceImpl implements ParkingSlotVehicleService 
         validateParam(parkingSlotVehicleDto);
         LOGGER.debug("Entering parkVehicle method. Vim: {}. Type {}",
                 parkingSlotVehicleDto.getVehicleVim(), parkingSlotVehicleDto.getVehicleTypeId());
-        final VehicleType vehicleType = getVehicleType(Long.valueOf(parkingSlotVehicleDto.getVehicleTypeId()));
-        final List<SlotType> slotTypeIds = this.getSlotTypeIdsByVehicleType(vehicleType);
-        final List<Slot> slots = this.slotRepository.findAllBySlotTypeInAndActiveTrue(slotTypeIds);
+        final VehicleType vehicleType = getVehicleType(Long.parseLong(parkingSlotVehicleDto.getVehicleTypeId()));
+        final List<SlotType> slotTypes = this.getSlotTypeIdsByVehicleType(vehicleType);
+        final List<Slot> slots = this.slotRepository.findAllBySlotTypeInAndActiveTrue(slotTypes);
         final int numberOfSlots = VehicleTypeRepository.ALIAS_VANS.equals(vehicleType.getAlias()) ? 3 : 1;
         if(slots.isEmpty() || numberOfSlots > slots.size()) {
             throw new ParkingLotException(ParkingLotException.Type.SLOT_NOT_AVAILABLE);
@@ -103,7 +103,7 @@ public class ParkingSlotVehicleServiceImpl implements ParkingSlotVehicleService 
 
     private VehicleType getVehicleType(final long id) {
         final Optional<VehicleType> vehicleType = this.vehicleTypeRepository.findById(id);
-        if(!vehicleType.isPresent()) {
+        if(vehicleType.isEmpty()) {
             throw new ParkingLotException(ParkingLotException.Type.VEHICLE_TYPE_NOT_FOUND);
         }
         return vehicleType.get();
@@ -112,9 +112,6 @@ public class ParkingSlotVehicleServiceImpl implements ParkingSlotVehicleService 
     private List<SlotType> getSlotTypeIdsByVehicleType(final VehicleType vehicleType) {
         final List<String> slotTypeAlias = this.getSlotTypeAliasByVehicleType(vehicleType);
         return this.slotTypeRepository.findByAliasIn(slotTypeAlias);
-                //.stream()
-                //.map(SlotType::getId)
-                //.toList();
     }
     private List<String> getSlotTypeAliasByVehicleType(final VehicleType vehicleType) {
         final List<String> slotAliasTypes = new ArrayList<>();

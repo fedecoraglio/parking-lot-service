@@ -9,7 +9,6 @@ import java.util.Date;
 @Entity
 @Table(name="slots_types")
 public class SlotType {
-
     @Id
     @GeneratedValue
     @Column(name = "id", unique = true, nullable = false)

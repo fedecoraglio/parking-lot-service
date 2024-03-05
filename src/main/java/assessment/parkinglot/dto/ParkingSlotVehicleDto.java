@@ -5,6 +5,14 @@ public class ParkingSlotVehicleDto {
     private String vehicleVim;
     private String vehicleTypeId;
 
+    public ParkingSlotVehicleDto() {
+    }
+
+    public ParkingSlotVehicleDto(String vehicleVim, String vehicleTypeId) {
+        this.vehicleVim = vehicleVim;
+        this.vehicleTypeId = vehicleTypeId;
+    }
+
     public String getVehicleVim() {
         return vehicleVim;
     }
